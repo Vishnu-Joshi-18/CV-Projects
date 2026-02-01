@@ -23,6 +23,8 @@ def is_valid_image(image_path):
     return True
 
 def pencil_sketch(file_path, blur_kernel=21):
+#even for the updated function with variable blur_kernel , having it as 21 acts as safety 
+
     """
     Convert an image to pencil sketch effect. 
     Returns:
@@ -54,7 +56,6 @@ def pencil_sketch(file_path, blur_kernel=21):
     #1e-6 is added in the denominator so that it is not divided by 0
 
     return original_rgb, sketch
-
 
 def display_result(original, sketch, save_path=None):
     """
@@ -94,14 +95,20 @@ def main():
     
     # Perform file checking
     if is_valid_image(filepath):
+        #now modified to include custom kernel dimensions
+        #
+        kernel_size = int(input("Enter kernel matrix size (nxn matrix) : "))
+        if kernel_size % 2 == 0:
+            kernel_size += 1 # Convert even to the next odd number
+            print(f"Adjusted kernel to {kernel_size} (must be odd)")
 
         # Call pencil sketch function
-        original, sketch = pencil_sketch(filepath)
+        original, sketch = pencil_sketch(filepath, blur_kernel=kernel_size)
         
         if original is not None:
             # Call display_result function
 
-            display_result(original, sketch, save_path=f"/Users/vishnu/Documents/Vishnu/Programming/College_now/iBot_Learning/CV-sessions/CV-Projects/Day1_Assignment_Vishnu/output_sketches/sketch3.jpg")
+            display_result(original, sketch)
         else:
             print("Processing error occurred.") 
 
