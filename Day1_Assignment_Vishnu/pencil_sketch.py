@@ -47,6 +47,7 @@ def pencil_sketch(file_path, blur_kernel=21):
     # Step 6: Divide and scale
 
     #it gave me error the first time i ran this without converting gray and inverted blurred to np.float32
+    #OverflowError: Python integer 256 out of bounds for uint8
     gray_f = gray.astype(np.float32)
     inverted_blurred_f = inverted_blurred.astype(np.float32)
     sketch = np.clip( (gray_f * 256) / ( inverted_blurred_f + 1e-6) , 0, 255).astype(np.uint8)
@@ -99,7 +100,8 @@ def main():
         
         if original is not None:
             # Call display_result function
-            display_result(original, sketch, save_path="/Users/vishnu/Documents/Vishnu/Programming/College_now/iBot_Learning/CV-sessions/CV-Projects/Day1_Assignment/output_sketch.png")
+
+            display_result(original, sketch, save_path=f"/Users/vishnu/Documents/Vishnu/Programming/College_now/iBot_Learning/CV-sessions/CV-Projects/Day1_Assignment_Vishnu/output_sketches/sketch3.jpg")
         else:
             print("Processing error occurred.") 
 
